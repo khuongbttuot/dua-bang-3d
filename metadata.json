@@ -1,0 +1,6 @@
+{
+  "name": "3D Board Viewer - Trình Xem Ảnh Bảng 3D",
+  "description": "Ứng dụng trình diễn và xem ảnh bảng điểm, bảng xếp hạng esports trong không gian 3D tương tác sống động",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

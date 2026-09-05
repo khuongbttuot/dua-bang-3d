@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DỪA - Trình Xem Ảnh Bảng</title>
+    <meta name="description" content="Thương hiệu DỪA - Ứng dụng trình diễn và xem ảnh bảng điểm, bảng xếp hạng esports tương tác sống động" />
+    <meta property="og:title" content="DỪA - Trình Xem Ảnh Bảng" />
+    <meta property="og:description" content="Thương hiệu DỪA - Ứng dụng trình diễn và xem ảnh bảng điểm, bảng xếp hạng esports tương tác sống động" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script>
+      (function() {
+        try {
+          var nativeFetch = window.fetch;
+          var activeFetch = nativeFetch ? nativeFetch.bind(window) : undefined;
+          Object.defineProperty(window, 'fetch', {
+            get: function() {
+              return activeFetch;
+            },
+            set: function(val) {
+              activeFetch = typeof val === 'function' ? val : activeFetch;
+            },
+            configurable: true,
+            enumerable: true
+          });
+        } catch (e) {}
+
+        window.addEventListener('error', function(event) {
+          if (event && event.message && event.message.indexOf('Cannot set property fetch') !== -1) {
+            event.preventDefault();
+            event.stopImmediatePropagation();
+          }
+        });
+
+        // CHẶN QUYỀN MỞ DEVTOOLS / F12 / XEM NGUỒN TRANG
+        // 1. Chặn chuột phải (Context Menu) để không chọn được "Kiểm tra" / "Inspect"
+        document.addEventListener('contextmenu', function(e) {
+          e.preventDefault();
+          return false;
+        }, { capture: true });
+
+        // 2. Chặn các phím tắt mở DevTools
+        document.addEventListener('keydown', function(e) {
+          // F12
+          if (e.key === 'F12' || e.keyCode === 123 || e.code === 'F12') {
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+          }
+
+          var isCtrlOrCmd = e.ctrlKey || e.metaKey;
+
+          // Ctrl+Shift+I (Inspect), Ctrl+Shift+J (Console), Ctrl+Shift+C (Inspect element), Ctrl+Shift+K (Firefox console)
+          if (isCtrlOrCmd && e.shiftKey && (
+            e.key === 'I' || e.key === 'i' ||
+            e.key === 'J' || e.key === 'j' ||
+            e.key === 'C' || e.key === 'c' ||
+            e.key === 'K' || e.key === 'k'
+          )) {
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+          }
+
+          // Ctrl+U (Xem mã nguồn trang / View Source)
+          if (isCtrlOrCmd && (e.key === 'u' || e.key === 'U')) {
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+          }
+
+          // Ctrl+S (Lưu trang)
+          if (isCtrlOrCmd && (e.key === 's' || e.key === 'S')) {
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+          }
+        }, { capture: true });
+
+        // 3. Cơ chế vô hiệu hóa / debugger loop nếu mở DevTools từ thanh menu trình duyệt
+        setInterval(function() {
+          var startTime = performance.now();
+          (function() {
+            return false;
+          }['constructor']('debugger')());
+          if (performance.now() - startTime > 100) {
+            // DevTools đang được mở, xóa console liên tục
+            console.clear();
+          }
+        }, 800);
+      })();
+    </script>
+    <link rel="preload" as="image" href="/assets/images/9211-rilakkuma.gif">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Teko:wght@500;600;700&display=swap" rel="stylesheet">
+  </head>
+  <body class="bg-[#0a0a0a] text-neutral-100 antialiased selection:bg-white/20 selection:text-white">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+
