@@ -48,7 +48,14 @@ export const StudioControls: React.FC<StudioControlsProps> = ({
   ];
 
   return (
-    <div className="fixed inset-y-0 right-0 z-50 w-full max-w-sm bg-[#0e0e0e]/95 backdrop-blur-xl border-l border-neutral-800 shadow-2xl flex flex-col animate-in slide-in-from-right duration-300">
+    <>
+      {/* Mobile backdrop */}
+      <div
+        className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm transition-opacity"
+        onClick={onClose}
+        aria-hidden="true"
+      />
+      <div className="fixed inset-y-0 right-0 z-50 w-full max-w-sm bg-[#0e0e0e]/95 backdrop-blur-xl border-l border-neutral-800 shadow-2xl flex flex-col animate-in slide-in-from-right duration-300">
       {/* Drawer Header */}
       <div className="p-4 border-b border-neutral-800/80 flex items-center justify-between">
         <div className="flex items-center gap-2.5">
@@ -275,5 +282,6 @@ export const StudioControls: React.FC<StudioControlsProps> = ({
         </button>
       </div>
     </div>
+    </>
   );
 };

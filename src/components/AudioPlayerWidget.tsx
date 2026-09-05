@@ -147,10 +147,10 @@ export const AudioPlayerWidget: React.FC = () => {
         </div>
       )}
 
-      {/* 2. Floating Volume Control Pill - Matching User Screenshot 2 */}
+      {/* 2. Floating Volume Control Pill - Mobile optimized */}
       <div
         id="audio-volume-widget"
-        className="fixed bottom-5 left-5 z-40 flex items-center gap-2.5 bg-[#0a0a0a]/90 backdrop-blur-md border border-white/20 hover:border-white/40 rounded-2xl px-3.5 py-2 shadow-2xl shadow-black/90 ring-1 ring-white/10 transition-all duration-200 group"
+        className="fixed bottom-[72px] sm:bottom-5 left-3 sm:left-5 z-40 flex items-center gap-2 sm:gap-2.5 bg-[#0a0a0a]/90 backdrop-blur-md border border-white/20 hover:border-white/40 rounded-2xl px-2.5 sm:px-3.5 py-1.5 sm:py-2 shadow-2xl shadow-black/90 ring-1 ring-white/10 transition-all duration-200 group"
       >
         {/* Speaker / Mute Button */}
         <button
@@ -160,16 +160,16 @@ export const AudioPlayerWidget: React.FC = () => {
           aria-label="Điều chỉnh âm thanh"
         >
           {effectiveVolume === 0 ? (
-            <VolumeX className="w-5 h-5 text-neutral-400" />
+            <VolumeX className="w-4 h-4 sm:w-5 sm:h-5 text-neutral-400" />
           ) : effectiveVolume < 0.5 ? (
-            <Volume1 className="w-5 h-5 text-white" />
+            <Volume1 className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
           ) : (
-            <Volume2 className="w-5 h-5 text-white" />
+            <Volume2 className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
           )}
         </button>
 
-        {/* Volume Slider Track with Thumb (matching Image 2) */}
-        <div className="relative flex items-center w-28 sm:w-36 h-6">
+        {/* Volume Slider Track with Thumb */}
+        <div className="relative flex items-center w-20 sm:w-36 h-6">
           {/* Custom Track Background */}
           <div className="w-full h-1.5 bg-neutral-700/80 rounded-full overflow-hidden">
             {/* White Progress Fill */}

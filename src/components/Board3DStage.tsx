@@ -181,10 +181,10 @@ export const Board3DStage: React.FC<Board3DStageProps> = ({
   const isPortrait = currentBoard.aspectRatio === '4:5' || currentBoard.aspectRatio === '9:16';
   const isSquare = currentBoard.aspectRatio === '1:1';
   const boardWidth = isPortrait
-    ? 'w-[340px] sm:w-[420px]'
+    ? 'w-[84vw] max-w-[340px] sm:w-[420px]'
     : isSquare
-    ? 'w-[450px] sm:w-[540px]'
-    : 'w-[560px] sm:w-[720px] md:w-[840px]';
+    ? 'w-[86vw] max-w-[420px] sm:w-[540px]'
+    : 'w-[90vw] max-w-[500px] sm:w-[720px] md:w-[840px]';
   const boardAspect = isPortrait ? 'aspect-[4/5]' : isSquare ? 'aspect-square' : 'aspect-[16/9]';
 
   return (
@@ -214,24 +214,24 @@ export const Board3DStage: React.FC<Board3DStageProps> = ({
         }}
         onWheel={handleWheel}
         style={{ perspective: `${settings.perspective || 1400}px` }}
-        className={`relative z-10 w-full flex-1 flex items-center justify-center cursor-grab active:cursor-grabbing transition-transform ${
+        className={`relative z-10 w-full flex-1 flex items-center justify-center cursor-grab active:cursor-grabbing transition-transform touch-none select-none ${
           isDragging ? 'cursor-grabbing' : ''
         }`}
       >
         {/* Navigation Arrow Left */}
         <button
           onClick={handlePrevBoard}
-          className="absolute left-4 sm:left-8 z-30 p-3 rounded-2xl bg-neutral-900/80 hover:bg-neutral-800 border border-neutral-700/60 text-neutral-300 hover:text-white backdrop-blur-md shadow-2xl transition-all hover:scale-105 active:scale-95"
-          title="Bảng trước đó (Phím Mũi Tên Trái)"
+          className="absolute left-2 sm:left-8 z-30 p-2.5 sm:p-3 rounded-2xl bg-neutral-900/80 hover:bg-neutral-800 border border-neutral-700/60 text-neutral-300 hover:text-white backdrop-blur-md shadow-2xl transition-all hover:scale-105 active:scale-95"
+          title="Bảng trước đó"
         >
-          <ChevronLeft className="w-5 h-5" />
+          <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
         </button>
 
         {/* Navigation Arrow Right */}
         <button
           onClick={handleNextBoard}
-          className="absolute right-4 sm:right-8 z-30 p-3 rounded-2xl bg-neutral-900/80 hover:bg-neutral-800 border border-neutral-700/60 text-neutral-300 hover:text-white backdrop-blur-md shadow-2xl transition-all hover:scale-105 active:scale-95"
-          title="Bảng kế tiếp (Phím Mũi Tên Phải)"
+          className="absolute right-2 sm:right-8 z-30 p-2.5 sm:p-3 rounded-2xl bg-neutral-900/80 hover:bg-neutral-800 border border-neutral-700/60 text-neutral-300 hover:text-white backdrop-blur-md shadow-2xl transition-all hover:scale-105 active:scale-95"
+          title="Bảng kế tiếp"
         >
           <ChevronRight className="w-5 h-5" />
         </button>

@@ -89,12 +89,12 @@ export const Header: React.FC<HeaderProps> = ({
   boardCount,
 }) => {
   return (
-    <header className="sticky top-0 z-40 w-full bg-[#0d0d0d]/95 backdrop-blur-md border-b border-neutral-800/80 px-3 sm:px-6 py-2.5">
-      <div className="max-w-7xl mx-auto flex items-center justify-between gap-3 sm:gap-4">
+    <header className="sticky top-0 z-40 w-full bg-[#0d0d0d]/95 backdrop-blur-md border-b border-neutral-800/80 px-2.5 sm:px-6 py-2 sm:py-2.5">
+      <div className="max-w-7xl mx-auto flex items-center justify-between gap-2 sm:gap-4">
         {/* Logo & Brand: Hiển thị logo data/logo.jpg & chữ DỪA gõ lần lượt từng chữ */}
-        <div className="flex items-center gap-3 shrink-0">
+        <div className="flex items-center gap-2 sm:gap-3 shrink-0">
           {/* Logo data/logo.jpg */}
-          <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl overflow-hidden shadow-lg shadow-amber-400/20 ring-1 ring-amber-400/60 shrink-0 bg-neutral-900">
+          <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl overflow-hidden shadow-lg shadow-amber-400/20 ring-1 ring-amber-400/60 shrink-0 bg-neutral-900">
             <img
               src={brandLogo}
               alt="Logo DỪA"
@@ -102,64 +102,64 @@ export const Header: React.FC<HeaderProps> = ({
             />
           </div>
 
-          {/* Chữ DỪA xuất hiện lần lượt từng chữ một (xóa hết chữ 3D) */}
+          {/* Chữ DỪA xuất hiện lần lượt từng chữ một */}
           <div className="flex flex-col justify-center">
             <AnimatedBrandText />
-            <p className="text-[11px] sm:text-xs text-neutral-400 flex items-center gap-1.5 font-medium select-none">
+            <p className="text-[10px] sm:text-xs text-neutral-400 hidden sm:flex items-center gap-1.5 font-medium select-none">
               Trình diễn bảng điểm hai mặt • <span className="text-neutral-200 font-semibold">{boardCount} bảng</span>
             </p>
           </div>
         </div>
 
         {/* View Mode Switcher */}
-        <nav aria-label="Chế độ hiển thị" className="flex items-center bg-neutral-900/90 p-1 rounded-xl border border-neutral-800 shadow-inner">
+        <nav aria-label="Chế độ hiển thị" className="flex items-center bg-neutral-900/90 p-0.5 sm:p-1 rounded-xl border border-neutral-800 shadow-inner">
           <button
             onClick={() => onModeChange('stage')}
-            className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 ${
+            className={`flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 ${
               currentMode === 'stage'
                 ? 'bg-white text-neutral-950 shadow-md font-bold'
                 : 'text-neutral-400 hover:text-neutral-200 hover:bg-neutral-800/60'
             }`}
             title="Sân khấu Studio xoay đa hướng"
           >
-            <Box className="w-3.5 h-3.5" />
+            <Box className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             <span className="hidden sm:inline">Sân Khấu</span>
           </button>
 
           <button
             onClick={() => onModeChange('carousel')}
-            className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 ${
+            className={`flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 ${
               currentMode === 'carousel'
                 ? 'bg-white text-neutral-950 shadow-md font-bold'
                 : 'text-neutral-400 hover:text-neutral-200 hover:bg-neutral-800/60'
             }`}
             title="Băng chuyền xoay vòng tròn"
           >
-            <GalleryVertical className="w-3.5 h-3.5" />
+            <GalleryVertical className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             <span className="hidden sm:inline">Băng Chuyền</span>
           </button>
         </nav>
 
         {/* Action Controls */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5 sm:gap-2">
           {/* Quick Auto-Rotate Toggle */}
           <button
             onClick={onToggleAutoRotate}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all duration-200 ${
+            className={`flex items-center gap-1 px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all duration-200 ${
               autoRotate
                 ? 'bg-white text-neutral-950 border-white shadow-sm font-bold'
                 : 'bg-neutral-900/80 text-neutral-400 border-neutral-800 hover:text-neutral-200 hover:bg-neutral-800'
             }`}
-            title={autoRotate ? 'Tắt tự động xoay (Phím Space)' : 'Bật tự động xoay 360° (Phím Space)'}
+            title={autoRotate ? 'Tắt tự động xoay' : 'Bật tự động xoay'}
           >
-            <RotateCw className={`w-3.5 h-3.5 ${autoRotate ? 'animate-spin text-neutral-950' : ''}`} />
+            <RotateCw className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${autoRotate ? 'animate-spin text-neutral-950' : ''}`} />
             <span className="hidden md:inline">{autoRotate ? 'Đang Xoay' : 'Tự Xoay'}</span>
           </button>
 
-          {/* Shortcuts Help */}
+          {/* Shortcuts Help - chỉ hiện trên desktop có bàn phím */}
           <button
             onClick={onOpenShortcuts}
-            className="p-2 rounded-lg bg-neutral-900/80 text-neutral-400 border border-neutral-800 hover:text-neutral-200 hover:bg-neutral-800 transition-colors"
+            className="p-1.5 sm:p-2 rounded-lg bg-neutral-900/80 text-neutral-400 border border-neutral-800 hover:text-neutral-200 hover:bg-neutral-800 transition-colors hidden sm:flex"
             title="Phím tắt điều khiển"
           >
             <HelpCircle className="w-4 h-4" />
@@ -168,7 +168,7 @@ export const Header: React.FC<HeaderProps> = ({
           {/* Studio Controls Drawer Toggle */}
           <button
             onClick={onToggleSettings}
-            className={`p-2 rounded-lg border transition-all ${
+            className={`p-1.5 sm:p-2 rounded-lg border transition-all ${
               isSettingsOpen
                 ? 'bg-white text-neutral-950 border-white shadow-md font-bold'
                 : 'bg-neutral-900/80 text-neutral-400 border-neutral-800 hover:text-neutral-200 hover:bg-neutral-800'
@@ -181,8 +181,8 @@ export const Header: React.FC<HeaderProps> = ({
           {/* Fullscreen Toggle */}
           <button
             onClick={onToggleFullscreen}
-            className="p-2 rounded-lg bg-neutral-900/80 text-neutral-400 border border-neutral-800 hover:text-neutral-200 hover:bg-neutral-800 transition-colors hidden sm:flex"
-            title={isFullscreen ? 'Thoát toàn màn hình (Phím F)' : 'Toàn màn hình trình chiếu (Phím F)'}
+            className="p-1.5 sm:p-2 rounded-lg bg-neutral-900/80 text-neutral-400 border border-neutral-800 hover:text-neutral-200 hover:bg-neutral-800 transition-colors hidden sm:flex"
+            title={isFullscreen ? 'Thoát toàn màn hình' : 'Toàn màn hình'}
           >
             {isFullscreen ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
           </button>
