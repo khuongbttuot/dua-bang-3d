@@ -55,33 +55,41 @@ export const Board3DStage: React.FC<Board3DStageProps> = ({
     return () => cancelAnimationFrame(animId);
   }, [settings.autoRotate, settings.autoRotateSpeed]);
 
-  // Mouse move for interactive tilt & light reflection shine
+  const rafMoveRef = useRef<number | null>(null);
+
+  // Mouse move for interactive tilt & light reflection shine (throttled with RAF)
   const handleMouseMove = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
       if (!containerRef.current) return;
       const rect = containerRef.current.getBoundingClientRect();
       const clientX = e.clientX - rect.left;
       const clientY = e.clientY - rect.top;
+      const rawX = e.clientX;
+      const rawY = e.clientY;
 
-      // Glare calculation
-      const xPercent = (clientX / rect.width) * 100;
-      const yPercent = (clientY / rect.height) * 100;
-      setGlarePosition({
-        x: Math.round(xPercent),
-        y: Math.round(yPercent),
-        opacity: 0.55,
+      if (rafMoveRef.current) return;
+      rafMoveRef.current = requestAnimationFrame(() => {
+        rafMoveRef.current = null;
+        // Glare calculation
+        const xPercent = (clientX / rect.width) * 100;
+        const yPercent = (clientY / rect.height) * 100;
+        setGlarePosition({
+          x: Math.round(xPercent),
+          y: Math.round(yPercent),
+          opacity: 0.55,
+        });
+
+        // Interactive drag rotation
+        if (isDragging) {
+          const deltaX = rawX - dragStart.x;
+          const deltaY = rawY - dragStart.y;
+          setCurrentRotation((prev) => ({
+            x: Math.max(-80, Math.min(80, prev.x - deltaY * 0.45)),
+            y: (prev.y + deltaX * 0.5) % 360,
+          }));
+          setDragStart({ x: rawX, y: rawY });
+        }
       });
-
-      // Interactive drag rotation
-      if (isDragging) {
-        const deltaX = e.clientX - dragStart.x;
-        const deltaY = e.clientY - dragStart.y;
-        setCurrentRotation((prev) => ({
-          x: Math.max(-80, Math.min(80, prev.x - deltaY * 0.45)),
-          y: (prev.y + deltaX * 0.5) % 360,
-        }));
-        setDragStart({ x: e.clientX, y: e.clientY });
-      }
     },
     [isDragging, dragStart]
   );
@@ -166,8 +174,8 @@ export const Board3DStage: React.FC<Board3DStageProps> = ({
     }
   };
 
-  // Calculate 3D thickness (extrusion depth layers)
-  const extrusionLayers = Math.max(2, Math.min(14, Math.round(settings.depth / 2)));
+  // Calculate 3D thickness (extrusion depth layers - capped at 4 for smooth 60fps)
+  const extrusionLayers = Math.max(1, Math.min(4, Math.round(settings.depth / 4)));
   const totalDepth = settings.depth;
 
   const isPortrait = currentBoard.aspectRatio === '4:5' || currentBoard.aspectRatio === '9:16';
@@ -443,6 +451,8 @@ export const Board3DStage: React.FC<Board3DStageProps> = ({
                   <img
                     src={board.url}
                     alt={board.title}
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover"
                   />
                   {/* Góc trái trên cùng badge trên thumbnail */}

@@ -77,18 +77,6 @@
             return false;
           }
         }, { capture: true });
-
-        // 3. Cơ chế vô hiệu hóa / debugger loop nếu mở DevTools từ thanh menu trình duyệt
-        setInterval(function() {
-          var startTime = performance.now();
-          (function() {
-            return false;
-          }['constructor']('debugger')());
-          if (performance.now() - startTime > 100) {
-            // DevTools đang được mở, xóa console liên tục
-            console.clear();
-          }
-        }, 800);
       })();
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">

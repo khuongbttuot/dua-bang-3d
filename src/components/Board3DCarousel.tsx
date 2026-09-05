@@ -129,6 +129,8 @@ export const Board3DCarousel: React.FC<Board3DCarouselProps> = ({
                   <img
                     src={board.url}
                     alt={board.title}
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover"
                   />
 

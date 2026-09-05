@@ -40,12 +40,12 @@ export const CustomCursor: React.FC = () => {
     handleResize();
     window.addEventListener('resize', handleResize);
 
-    // Multi-strand physics spring trail configuration from duongtran.xyz
+    // Multi-strand physics spring trail configuration (optimized for 60fps performance)
     const settings = {
-      friction: 0.5,
-      trails: 20,
-      size: 50,
-      dampening: 0.2,
+      friction: 0.55,
+      trails: 6,
+      size: 20,
+      dampening: 0.25,
       tension: 0.98,
       color: '#737373',
     };
