@@ -45,12 +45,16 @@ const rawBoards: BoardRawData[] = [
   { num: 42, file: '42.jpg', aspectRatio: '4:5' },
 ];
 
+const baseUrl = (import.meta.env.BASE_URL || './').endsWith('/')
+  ? (import.meta.env.BASE_URL || './')
+  : `${import.meta.env.BASE_URL}/`;
+
 export const initialSampleBoards: BoardImage[] = rawBoards.map((item) => ({
   id: `board-${item.num}`,
   boardNumber: item.num,
   title: `Bảng Điểm #${item.num}`,
   subtitle: `Ảnh bảng điểm số ${item.num} (bảng điểm/${item.file})`,
-  url: `/bang_diem/${item.file}`,
+  url: `${baseUrl}bang_diem/${item.file}`,
   theme: 'cyber',
   aspectRatio: item.aspectRatio,
   tags: [`#${item.num}`, 'Bảng Điểm', item.aspectRatio],
